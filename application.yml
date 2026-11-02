@@ -1,2 +1,30 @@
-dbpass: Sukantg#007
-dbuser: postgres
+# Kafka Configuration (Shared)
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: ${spring.application.name}-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+# Tracing / Micrometer / Zipkin (Shared)
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  
+  # Actuator Endpoints (Shared)
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus, busrefresh
+  endpoint:
+    health:
+      show-details: always
