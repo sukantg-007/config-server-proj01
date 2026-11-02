@@ -1,4 +1,4 @@
 payment:
   provider: mock-gateway
-  timeout-ms: 10000
+  timeout-ms: 5000
   retry-count: 1
